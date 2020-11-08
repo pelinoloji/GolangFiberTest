@@ -18,13 +18,22 @@ func main() {
 	app.Get("/users", readUsers)
 	app.Get("/users/:id", readUser)
 	app.Put("/users/", updateUser)
-
+	app.Delete("/users/:id", deleteUser)
 	app.Listen(":8080")
 }
 
-func updateUser(ctx *fiber.Ctx) error {
+func deleteUser(ctx *fiber.Ctx) error {
+	id := ctx.Params("id")
 
-	//id := ctx.Params("id")
+	for i, userDelete := range users {
+		if userDelete.ID == id {
+			remove(users, i) //not working properly
+		}
+	}
+	return ctx.JSON(fiber.Map{"status": "DELETED!!"})
+}
+
+func updateUser(ctx *fiber.Ctx) error {
 
 	user := new(User)
 	err := ctx.BodyParser(user)
@@ -69,7 +78,7 @@ func createUser(ctx *fiber.Ctx) error {
 	}
 	users = append(users, user)
 	fmt.Printf("username: %s password: %s \n", user.UserName, user.Pass)
-	return ctx.SendString("DONE!")
+	return ctx.JSON(user)
 }
 
 type User struct {
