@@ -17,14 +17,14 @@ func main() {
 	app.Post("/users", createUser)
 	app.Get("/users", readUsers)
 	app.Get("/users/:id", readUser)
-	app.Put("/users/:id", updateUser)
+	app.Put("/users/", updateUser)
 
 	app.Listen(":8080")
 }
 
 func updateUser(ctx *fiber.Ctx) error {
 
-	id := ctx.Params("id")
+	//id := ctx.Params("id")
 
 	user := new(User)
 	err := ctx.BodyParser(user)
@@ -34,7 +34,7 @@ func updateUser(ctx *fiber.Ctx) error {
 	}
 
 	for i, userUpdate := range users {
-		if userUpdate.ID == id {
+		if userUpdate.ID == user.ID {
 			users[i].UserName = user.UserName
 			users[i].Pass = user.Pass
 			return ctx.JSON(userUpdate)
