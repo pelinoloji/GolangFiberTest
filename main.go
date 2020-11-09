@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/gofiber/fiber/v2"
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -29,7 +30,7 @@ func main() {
 	//})
 
 	app.Post("/users", createUser(userCollection))
-	//app.Get("/users", readUsers)
+	app.Get("/users", readUsers(userCollection))
 	//app.Get("/users/:id", readUser)
 	//app.Put("/users/", updateUser)
 	//app.Delete("/users/:id", deleteUser)
@@ -84,13 +85,30 @@ func main() {
 //}
 
 // Fiber Read Users
-
 //func readUsers(ctx *fiber.Ctx) error {
 //	return ctx.JSON(&users)
 //}
 
-// Fiber Create User
+// Mongo DB Read Users
 
+func readUsers(uc *mongo.Collection) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		var users []User
+		cursor, err := uc.Find(context.Background(), bson.D{}) //connect mongo DB and bring all data from DB
+
+		if err != nil {
+			return err
+		}
+		for cursor.Next(context.TODO()) { //return all data with cursor method, and it's gonna add user List all returning datas
+			var user User
+			_ = cursor.Decode(&user)
+			users = append(users, user)
+		}
+		return ctx.JSON(users) //Show user list as a json format
+	}
+}
+
+// Fiber Create User
 //func createUser(ctx *fiber.Ctx) error {
 //	user := new(User)
 //	err := ctx.BodyParser(user)
@@ -103,6 +121,7 @@ func main() {
 //	return ctx.JSON(user)
 //}
 
+// Mongo DB Create User
 func createUser(uc *mongo.Collection) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		user := new(User)
