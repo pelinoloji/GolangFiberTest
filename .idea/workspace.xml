@@ -21,12 +21,14 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mongo" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="ide.date.format" />
   </component>
   <component name="RunManager" selected="Go Build.go build main.go">
@@ -66,26 +68,50 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="640" y="365" key="#Go_Modules/0.0.1680.1050@0.0.1680.1050" timestamp="1604840236406" />
-    <state x="304" y="187" width="1071" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604835855184">
+    <state x="300" y="193" width="1071" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604917957096">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="304" y="187" width="1071" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1604835855184" />
-    <state width="1638" height="295" key="GridCell.Tab.0.bottom" timestamp="1604862115103">
+    <state x="300" y="193" width="1071" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1604917957096" />
+    <state width="1638" height="295" key="GridCell.Tab.0.bottom" timestamp="1604917917135">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1604862115103" />
-    <state width="1638" height="295" key="GridCell.Tab.0.center" timestamp="1604862115102">
+    <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1604917917135" />
+    <state width="1638" height="364" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604872209274" />
+    <state width="1638" height="295" key="GridCell.Tab.0.center" timestamp="1604917917134">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1604862115102" />
-    <state width="1638" height="295" key="GridCell.Tab.0.left" timestamp="1604862115102">
+    <state width="1638" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1604917917134" />
+    <state width="1638" height="364" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604872209273" />
+    <state width="1638" height="295" key="GridCell.Tab.0.left" timestamp="1604917917134">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1604862115102" />
-    <state width="1638" height="295" key="GridCell.Tab.0.right" timestamp="1604862115102">
+    <state width="1638" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1604917917134" />
+    <state width="1638" height="364" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604872209273" />
+    <state width="1638" height="295" key="GridCell.Tab.0.right" timestamp="1604917917134">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1604862115102" />
+    <state width="1638" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1604917917134" />
+    <state width="1638" height="364" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604872209274" />
+    <state width="1638" height="364" key="GridCell.Tab.1.bottom" timestamp="1604872233233">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="364" key="GridCell.Tab.1.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1604872233233" />
+    <state width="1638" height="364" key="GridCell.Tab.1.center" timestamp="1604872233233">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="364" key="GridCell.Tab.1.center/0.0.1680.1050@0.0.1680.1050" timestamp="1604872233233" />
+    <state width="1638" height="364" key="GridCell.Tab.1.left" timestamp="1604872233232">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="364" key="GridCell.Tab.1.left/0.0.1680.1050@0.0.1680.1050" timestamp="1604872233232" />
+    <state width="1638" height="364" key="GridCell.Tab.1.right" timestamp="1604872233233">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="364" key="GridCell.Tab.1.right/0.0.1680.1050@0.0.1680.1050" timestamp="1604872233233" />
+    <state width="243" height="457" key="HiddenNamespacesPopup" timestamp="1604917752328">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="243" height="457" key="HiddenNamespacesPopup/0.0.1680.1050@0.0.1680.1050" timestamp="1604917752328" />
     <state x="341" y="155" key="SettingsEditor" timestamp="1604856568911">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
