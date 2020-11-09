@@ -33,12 +33,12 @@ func main() {
 	app.Get("/users", readUsers(userCollection))
 	app.Get("/users/:id", readUser(userCollection))
 	app.Put("/users/", updateUser(userCollection))
-	//app.Delete("/users/:id", deleteUser)
+	app.Delete("/users/:id", deleteUser(userCollection))
+
 	app.Listen(":8080")
 }
 
 // Fiber Delete User
-
 //func deleteUser(ctx *fiber.Ctx) error {
 //	id := ctx.Params("id")
 //
@@ -50,8 +50,26 @@ func main() {
 //	return ctx.JSON(fiber.Map{"status": "DELETED!!"})
 //}
 
+//Mongo DB Delete User
+func deleteUser(uc *mongo.Collection) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		id := ctx.Params("id")                   // Fiber holds this id params, with this code we're getting id params from fiber
+		ID, err := primitive.ObjectIDFromHex(id) // return string to object
+		if err != nil {
+			return err
+		}
+
+		one, err := uc.DeleteOne(context.Background(), bson.M{"_id": ID})
+
+		if err != nil {
+			return err
+		}
+		return ctx.JSON(fiber.Map{"status": one.DeletedCount})
+	}
+}
+
 // Fiber Update User
-//func updateUser(ctx *fiber.Ctx) error {
+// func updateUser(ctx *fiber.Ctx) error {
 //
 //	user := new(User)
 //	err := ctx.BodyParser(user)
@@ -69,7 +87,7 @@ func main() {
 //	}
 //	return fiber.NewError(fiber.StatusBadRequest, "UPSSS!")
 //
-//}
+// }
 
 // Mongo DB Update User
 func updateUser(uc *mongo.Collection) fiber.Handler {
@@ -100,7 +118,6 @@ func updateUser(uc *mongo.Collection) fiber.Handler {
 //}
 
 // Mongo DB Read User
-
 func readUser(uc *mongo.Collection) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		id := ctx.Params("id")
@@ -118,9 +135,9 @@ func readUser(uc *mongo.Collection) fiber.Handler {
 }
 
 // Fiber Read Users
-//func readUsers(ctx *fiber.Ctx) error {
+// func readUsers(ctx *fiber.Ctx) error {
 //	return ctx.JSON(&users)
-//}
+// }
 
 // Mongo DB Read Users
 func readUsers(uc *mongo.Collection) fiber.Handler {
@@ -141,7 +158,7 @@ func readUsers(uc *mongo.Collection) fiber.Handler {
 }
 
 // Fiber Create User
-//func createUser(ctx *fiber.Ctx) error {
+// func createUser(ctx *fiber.Ctx) error {
 //	user := new(User)
 //	err := ctx.BodyParser(user)
 //
@@ -151,7 +168,7 @@ func readUsers(uc *mongo.Collection) fiber.Handler {
 //	users = append(users, user)
 //	fmt.Printf("username: %s password: %s \n", user.UserName, user.Pass)
 //	return ctx.JSON(user)
-//}
+// }
 
 // Mongo DB Create User
 func createUser(uc *mongo.Collection) fiber.Handler {
