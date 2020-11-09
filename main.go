@@ -32,7 +32,7 @@ func main() {
 	app.Post("/users", createUser(userCollection))
 	app.Get("/users", readUsers(userCollection))
 	app.Get("/users/:id", readUser(userCollection))
-	//app.Put("/users/", updateUser)
+	app.Put("/users/", updateUser(userCollection))
 	//app.Delete("/users/:id", deleteUser)
 	app.Listen(":8080")
 }
@@ -51,7 +51,6 @@ func main() {
 //}
 
 // Fiber Update User
-
 //func updateUser(ctx *fiber.Ctx) error {
 //
 //	user := new(User)
@@ -72,8 +71,24 @@ func main() {
 //
 //}
 
-// Fiber Read User
+// Mongo DB Update User
+func updateUser(uc *mongo.Collection) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		var user User
+		err := ctx.BodyParser(&user) //I'm gonna receive user
+		if err != nil {
+			return err
+		}
+		_, err = uc.UpdateOne(context.Background(), bson.M{"_id": user.ID}, bson.M{"$set": user})
 
+		if err != nil {
+			return err
+		}
+		return ctx.JSON(user)
+	}
+}
+
+// Fiber Read User
 //func readUser(ctx *fiber.Ctx) error {
 //	id := ctx.Params("id")
 //	for _, user := range users {
