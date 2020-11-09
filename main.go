@@ -31,7 +31,7 @@ func main() {
 
 	app.Post("/users", createUser(userCollection))
 	app.Get("/users", readUsers(userCollection))
-	//app.Get("/users/:id", readUser)
+	app.Get("/users/:id", readUser(userCollection))
 	//app.Put("/users/", updateUser)
 	//app.Delete("/users/:id", deleteUser)
 	app.Listen(":8080")
@@ -84,13 +84,30 @@ func main() {
 //	return fiber.NewError(fiber.StatusBadRequest, "NOOOOOOOOOOOOOOO!")
 //}
 
+// Mongo DB Read User
+
+func readUser(uc *mongo.Collection) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		id := ctx.Params("id")
+		ID, err := primitive.ObjectIDFromHex(id) // We get id as a string but we need to set id to object. Why? We set the object as a type in struct area.
+		if err != nil {
+			return err
+		}
+		var user User
+		err = uc.FindOne(context.Background(), bson.M{"_id": ID}).Decode(&user) // searching inside the user Collection
+		if err != nil {
+			return err
+		}
+		return ctx.JSON(user)
+	}
+}
+
 // Fiber Read Users
 //func readUsers(ctx *fiber.Ctx) error {
 //	return ctx.JSON(&users)
 //}
 
 // Mongo DB Read Users
-
 func readUsers(uc *mongo.Collection) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		var users []User
