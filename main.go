@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2" // HTTP methods
 	"github.com/sirupsen/logrus"
-	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson" // mongo-driver using for saving the sate from Mongo DB
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -32,10 +32,24 @@ func main() {
 	app.Post("/users", createUser(userCollection))
 	app.Get("/users", readUsers(userCollection))
 	app.Get("/users/:id", readUser(userCollection))
+	app.Get("/users/un/:username", readUserByUsername(userCollection))
 	app.Put("/users/", updateUser(userCollection))
 	app.Delete("/users/:id", deleteUser(userCollection))
 
 	app.Listen(":8080")
+}
+
+//Mongo DB Remove user by username
+func readUserByUsername(uc *mongo.Collection) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		username := ctx.Params("username")
+		var user User
+		err := uc.FindOne(context.Background(), bson.M{"username": username}).Decode(&user)
+		if err != nil {
+			return err
+		}
+		return ctx.JSON(user)
+	}
 }
 
 // Fiber Delete User
@@ -192,9 +206,10 @@ func createUser(uc *mongo.Collection) fiber.Handler {
 }
 
 type User struct {
-	ID       primitive.ObjectID `bson:"_id" json:"id"`
-	UserName string             `bson:"username" json:"username"`
-	Pass     string             `bson:"password" json:"password"`
+	ID          primitive.ObjectID `bson:"_id" json:"id"`
+	UserName    string             `bson:"username" json:"username"`
+	Pass        string             `bson:"password" json:"password"`
+	CreatedDate time.Time          `bson:"createdDate" json:"createdDate"`
 }
 
 //Mongo DB Connection Code Block
